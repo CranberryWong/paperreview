@@ -1,0 +1,56 @@
+{% extends "main_base.html" %}
+{% block main %}
+<main>
+        <div class="container main-margin">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="user-profile">
+                        <img src="/static/images/avatar/avatar-1.svg" alt="" class="img-circle">
+                        <h4>Wong</h4>
+                    </div>
+                </div>
+                <div class="col-md-9">   
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Add Abstract</h4>
+      </div>
+       <form action="" method="POST">
+      <div class="modal-body container">
+          <div class="row">
+              <div class="col-md-12">
+                     <fieldset class="form-group row">
+                        <label for="paper-title" class="col-md-3 necessary form-control">Paper Title</label>
+                        <input id="paper-title" class="col-md-9 form-control" type="text" placeholder="Paper Title">
+                    </fieldset>
+
+                    <fieldset class="form-group row">
+                        <label for="paper-abstract" class="col-md-3 necessary form-control">Paper Abstract</label>
+                        <input id="paper-abstract" class="col-md-9 form-control" type="text" placeholder="Paper Abstract">
+                    </fieldset>
+                    </div></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>     
+                    <hr>
+                    <h4>Computing of Interface Aesthetic</h4>
+                    <p>Here is a placeholder</p>
+                </div>
+            </div>      
+        </div>
+    </main>
+{% end %}

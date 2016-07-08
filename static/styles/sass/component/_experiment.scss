@@ -1,0 +1,32 @@
+/**
+ * Experiment Sass
+ */
+
+
+.exp-background {
+    background-image: url('/static/images/background-1.png');
+} 
+.wrapper {
+    background-color: white;
+    border-radius: 2rem;
+    padding: 4rem;
+    box-shadow: 2px 2px 20px #222222;
+} 
+
+.card-img-top {
+    max-width: 353px;
+}
+
+.webpage-fix {
+    width:100%;
+}
+
+.rating {
+    width: 100%;
+    text-align: center;
+    padding: 20px 100px;
+    position:fixed;
+    z-index: 50;
+    bottom:0;
+    background-color:white;
+}

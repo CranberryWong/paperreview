@@ -1,0 +1,14 @@
+/**
+ * Body Global Sass
+ */
+
+//Body-Align 
+$body-padding-top:           2rem;
+
+
+// Global style  
+body {
+    padding-top: $body-padding-top;
+    font-family: $font-family-best;
+    height: 100%;
+}

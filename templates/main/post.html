@@ -1,0 +1,25 @@
+{% extends "main_base.html" %}
+{% block main %}
+<main>
+        <div class="container main-margin">
+            <div class="row wrapper">
+                <div class="col-md-12">
+                    <form action="" method="POST">
+                        <p> Abstract A New Paper</p>
+                     <fieldset class="form-group row">
+                        <label for="paper-title" class="col-md-3 necessary form-control">Paper Title</label>
+                        <input id="paper-title" class="col-md-9 form-control" type="text" placeholder="Paper Title">
+                    </fieldset>
+
+                    <fieldset class="form-group row">
+                        <label for="paper-abstract" class="col-md-3 necessary form-control">Paper Abstract</label>
+                        <input id="paper-abstract" class="col-md-9 form-control" type="text" placeholder="Paper Abstract">
+                    </fieldset>
+ 
+                    <button type="submit" class="btn btn-primary pull-right">{{ _('Next') }}</button>
+                    </form>
+                </div>
+            </div>    
+        </div>
+    </main>
+{% end %}

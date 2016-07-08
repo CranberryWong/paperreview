@@ -1,0 +1,16 @@
+/**
+ * Footer Sass
+ */
+
+//Footer-Align
+$footer-padding-top:            2rem;
+$footer-padding-bottom:         2rem;
+ 
+footer {
+	background-color: $black-footer;
+	padding-top: $footer-padding-top;
+    padding-bottom: $footer-padding-bottom;
+    color: $white-text;   
+    height: 200px;
+
+}

@@ -1,0 +1,90 @@
+/**
+ * Settings
+ * Colors & Fontsize
+ */
+/**
+ * Colors
+ */
+/**
+ * Fontsize
+ */
+/**
+ * Images
+ */
+/**
+ * Font-Family
+ */
+/**
+ * Body Global Sass
+ */
+/* line 10, ../sass/component/_body.scss */
+body {
+  padding-top: 2rem;
+  font-family: "Open Sans", "Helvetica Neue";
+  height: 100%;
+}
+
+/**
+ * Experiment Sass
+ */
+/* line 6, ../sass/component/_experiment.scss */
+.exp-background {
+  background-image: url("/static/images/background-1.png");
+}
+
+/* line 9, ../sass/component/_experiment.scss */
+.wrapper {
+  background-color: white;
+  border-radius: 2rem;
+  padding: 4rem;
+  box-shadow: 2px 2px 20px #222222;
+}
+
+/* line 16, ../sass/component/_experiment.scss */
+.card-img-top {
+  max-width: 353px;
+}
+
+/* line 20, ../sass/component/_experiment.scss */
+.webpage-fix {
+  width: 100%;
+}
+
+/* line 24, ../sass/component/_experiment.scss */
+.rating {
+  width: 100%;
+  text-align: center;
+  padding: 20px 100px;
+  position: fixed;
+  z-index: 50;
+  bottom: 0;
+  background-color: white;
+}
+
+/**
+ * Header Sass
+ */
+/**
+ * Header Sass
+ */
+/* line 5, ../sass/component/_main.scss */
+main {
+  min-height: 700px;
+}
+/* line 9, ../sass/component/_main.scss */
+main .main-margin {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/**
+ * Footer Sass
+ */
+/* line 9, ../sass/component/_footer.scss */
+footer {
+  background-color: #2a2a2a;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  color: #ffffff;
+  height: 200px;
+}
