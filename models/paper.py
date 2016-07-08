@@ -22,7 +22,7 @@ class Paper(object):
     '''
     def __init__(self, user, title, author, content, pubDate):    
 
-        self.paper_id = paper_id
+        self.paper_id = uuid.uuid1()
         self.user = user
         self.title = title
         self.author = author

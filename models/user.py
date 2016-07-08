@@ -22,7 +22,7 @@ class User(object):
     avatar = field.Char()
     paper = orm.List(type = Paper)
     '''
-    def __init__(self, username, password, email, position, avatar):
+    def __init__(self, username, password, email, position, role, avatar):
 
         self.user_id = uuid.uuid1()
         self.username = username

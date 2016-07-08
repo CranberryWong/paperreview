@@ -12,6 +12,7 @@ body {
 }
 .ab{
   z-index:3;
+  text-align: center;
 }
 
 #particles-js{
@@ -54,4 +55,9 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+.signcontainer {
+  background-color: white;
+  padding: 40px;
+  border-radius: 20px;
 }

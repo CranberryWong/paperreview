@@ -77,6 +77,25 @@ main .main-margin {
   margin-bottom: 2rem;
 }
 
+/* line 17, ../sass/component/_main.scss */
+.paper-feed .feed-profile-fix {
+  text-align: center;
+}
+
+/* line 25, ../sass/component/_main.scss */
+.user-profile {
+  text-align: center;
+  border: #dddddd 1px solid;
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+}
+/* line 32, ../sass/component/_main.scss */
+.user-profile img {
+  height: 7rem;
+  width: 7rem;
+  margin: 2rem;
+}
+
 /**
  * Footer Sass
  */

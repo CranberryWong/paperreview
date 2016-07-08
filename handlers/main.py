@@ -5,6 +5,7 @@ import tornado.locale
 import random
 from handlers.util import db
 from handlers.auth import StaticData
+from models.paper import Paper
 import uuid
 
 global lang_encode
@@ -49,7 +50,7 @@ class MainHandler(BaseHandler):
         paper = papers.find({}).sort("reviseTime")
         self.render("main/main.html", paper = paper)
 
-class PaperHandler(BaseHandler):
+class PaperShowHandler(BaseHandler):
     def get(self, id):
         BaseHandler.initialize(self)
         papers = db.paper
@@ -57,7 +58,22 @@ class PaperHandler(BaseHandler):
         self.title = result["title"]
         self.render("main/detail.html", result = result)
 
-class UserHandler(BaseHandler):
+class PaperCommitHandler(BaseHandler):
+    def post(self, id):
+        BaseHandler.initialize(self)
+
+        title = self.get_argument('title', default='')
+        content = self.get_argument('content', default='')
+        author = self.get_argument('author', default='')
+        pubdate = self.get_argument('pubdate', default='')
+        
+        papers = db.paper
+        newPaper = Paper(id, title, author, content, pubdate)
+        result = papers.insert_one(newPaper.getValue()).inserted_id
+        self.write('<script language="javascript">alert("success");self.location="/user/{0}";</script>'.format(id))
+
+#User Profile Handler
+class UserHomeHandler(BaseHandler):
     def get(self, id):
         BaseHandler.initialize(self)
         users = db.user
@@ -66,54 +82,10 @@ class UserHandler(BaseHandler):
         self.title = result["username"]
         self.render("main/profile.html", result = result)
 
-class FormHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.title = "Test"
-        self.render("experiment/form.html")
-        
-    def post(self):
-        self.title = "Test"
-    
-        ifTest = self.get_argument('ifTest', default='')   
-        gender = self.get_argument('gender', default='')
-        age = self.get_argument('age', default='')
-        ifReside = self.get_argument('ifReside', default='')
-        firstCountry = self.get_argument('firstCountry', default='')
-        howLong = self.get_argument('howLong', default='')
-        language = self.get_argument('language', default='')
-        fatherNation = self.get_argument('fatherNation', default='')
-        motherNation = self.get_argument('motherNation', default='')
-        education = self.get_argument('education', default='')
-        surfingTime = self.get_argument('surfingTime', default='')
-        
-        collection = db.form_collection
-        newForm = form(ifTest, gender, age, ifReside, firstCountry, howLong, language, fatherNation, motherNation, education, surfingTime)
-        post = dict(id = newForm.id, 
-                    ifTest = newForm.ifTest, 
-                    gender = newForm.gender,
-                    age = newForm.age,
-                    ifReside = newForm.ifReside,
-                    firstCountry = newForm.firstCountry,
-                    howLong = newForm.howLong,
-                    language = newForm.language,
-                    fatherNation = newForm.fatherNation,
-                    motherNation = newForm.motherNation,
-                    education = newForm.education,
-                    surfingTime = newForm.surfingTime,
-                    createTime = newForm.createTime)
-        post_id = collection.insert_one(post).inserted_id
-        self.redirect('/aesthetic/note')
-  
-class StatementHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.title = "Statement"
-        self.render("experiment/first.html")
-        
-class NoteHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.title = "Note"
-        self.render("experiment/second.html")            
-                
+class UserProfileHandler(BaseHandler):
+    pass
+
+'''
 class EditPost(tornado.web.RequestHandler):
     def get(self):
         users = self.application.db['user']
@@ -125,4 +97,11 @@ class EditPost(tornado.web.RequestHandler):
         else:
 			self.set_status(404)
 			self.write({"error": "word not found"})            
+'''
 
+#List by Index Handler
+class ListByDate(BaseHandler):
+    pass
+
+class ListByType(BaseHandler):
+    pass

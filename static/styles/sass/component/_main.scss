@@ -11,3 +11,29 @@ main {
         margin-bottom: 2rem;
     }   
 }
+
+.paper-feed {
+
+    .feed-profile-fix {
+        text-align: center;
+    }
+    
+}
+
+
+//User Profile 
+.user-profile {
+    text-align: center;
+
+    border: #dddddd 1px solid;
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+
+    img {
+        height: 7rem;
+        width: 7rem;
+        margin: 2rem;
+    }
+}
+
+//Paper Modal
