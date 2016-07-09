@@ -7,6 +7,7 @@ from handlers.util import db
 from handlers.auth import StaticData
 from models.paper import Paper
 import uuid
+import json
 
 global lang_encode
 lang_encode = 'zh_CN'
@@ -34,7 +35,7 @@ class BaseHandler(StaticData):
             users = db.user
             self.user = users.find_one({'username':self.signeduser})
             self.signedid = self.user['user_id']
-            self.signavatar = self.user['avatar']
+            self.signedavatar = self.user['avatar']
         else:
             self.signedid = None
 
@@ -48,6 +49,7 @@ class MainHandler(BaseHandler):
         self.title = 'Home'
         papers = db.paper
         paper = papers.find({}).sort("reviseTime")
+        
         self.render("main/main.html", paper = paper)
 
 class PaperShowHandler(BaseHandler):
@@ -68,7 +70,7 @@ class PaperCommitHandler(BaseHandler):
         pubdate = self.get_argument('pubdate', default='')
         
         papers = db.paper
-        newPaper = Paper(id, title, author, content, pubdate)
+        newPaper = Paper(id, self.signeduser, self.signedavatar, title, author, content, pubdate)
         result = papers.insert_one(newPaper.getValue()).inserted_id
         self.write('<script language="javascript">alert("success");self.location="/user/{0}";</script>'.format(id))
 
@@ -78,9 +80,11 @@ class UserHomeHandler(BaseHandler):
         BaseHandler.initialize(self)
         users = db.user
         user_id = uuid.UUID(id)
-        result = users.find_one({"user_id": user_id})
-        self.title = result["username"]
-        self.render("main/profile.html", result = result)
+        userProfile = users.find_one({"user_id": user_id})
+        papers = db.paper
+        paperList = papers.find({"user.user_id": id})
+        self.title = userProfile["username"]
+        self.render("main/profile.html", userProfile = userProfile, paperList = paperList)
 
 class UserProfileHandler(BaseHandler):
     pass

@@ -6,12 +6,12 @@
                     <div class="row">                  
                         <div class="col-md-9">
                             <div class="paper-feed">
-                            <a href="#"><h4>Computing of Interface Aesthetic</h4></a>
-                                                        <div class="user-profile">
+                            <a href="#"><h4>{{ result['title'] }}</h4></a>
+                           <div class="user-profile">
                             <img src="../../../static/images/avatar/avatar-1.svg" alt="" class="img-circle">
-                            <h4>Wong</h4>
+                            <a href="/user/{{ result['user_id'] }}"><h4>{{ result['user']['username'] }}</h4></a>
                         </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam mattis justo, quis luctus justo euismod sit amet. Vestibulum id egestas ipsum, non eleifend risus. Aenean consequat aliquam scelerisque. Cras sollicitudin metus nec mollis aliquet. Vestibulum interdum libero massa, elementum lacinia mauris suscipit nec. Morbi egestas aliquet est, eget interdum ligula pulvinar at. Phasellus tempus semper tortor eget tincidunt. Donec maximus eleifend libero, at gravida sem vestibulum id. Vivamus viverra bibendum dui.</p>
+                            <p>{{ result['content'] }}</p>
                         </div>
                         
                         <hr>

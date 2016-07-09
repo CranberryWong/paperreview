@@ -32,7 +32,6 @@ class User(object):
         self.role = 3
         self.authenication = True
         self.avatar = avatar
-        self.paper = []
     
     def __repr__(self):
         
@@ -40,4 +39,4 @@ class User(object):
 
     def getValue(self):
 
-        return dict(user_id = self.user_id, username = self.username, password = self.password, email = self.email, position = self.position, role = self.role, authenication = self.authenication, avatar = self.avatar, paper = self.paper)
+        return dict(user_id = self.user_id, username = self.username, password = self.password, email = self.email, position = self.position, role = self.role, authenication = self.authenication, avatar = self.avatar)

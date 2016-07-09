@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <nav class="navbar navbar-light" style="background-color:#e3f2fd;">
-                        <a class="navbar-brand" href="#">{{ _('Papersroucing') }}</a>
+                        <a class="navbar-brand" href="/">{{ _('Papersroucing') }}</a>
                         <ul class="nav navbar-nav">
                             <li class="nav-item active">
                                 <a class="nav-link" href="#">{{ _('Home') }}<span class="sr-only">(current)</span></a>
@@ -34,15 +34,16 @@
               <a href="/signup" class="btn btn-info">Sign Up</a>
               <a href="/signin" class="btn btn-primary">Sign In</a>
               {% else %}
-              <ul class="nav navbar-nav" style="margin:-8px 0;">
-              <li class="dropdown open">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ handler.signavatar }}" class="img-circle" style="height:40px;width:40px;margin:-10px 6px -10px -6px;">{{ current_user }}<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu" style="min-width:145px;">
-                  <li><a href="/user/{{ handler.signedid }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Homepage</a></li>
-                  <li><a href="/signout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Sign Out</a></li>
-                </ul>
-              </li>
-            </ul>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   {{ current_user }}
+                </button>
+                    <div class="dropdown-menu">
+                        <a href="/user/{{ handler.signedid }}" class="dropdown-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Homepage</a>
+                        <a href="/signout" class="dropdown-item"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Sign Out</a>
+                    </div>
+                </div>
+                
               {% end %}
                         </div>
                         <form class="form-inline navbar-form pull-right">
@@ -60,7 +61,16 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-md-12">Powered by CranberryWong 🙆</div>                                             
+                <div class="col-md-12 text-center">
+                    <img src="/static/images/sign.png" alt="" style="width:30%;">
+                    <hr>
+                    <p>I'm the Pied Piper~ Follow me~ 🙆</p>
+                    {% if handler.signeduser != None %}
+                    {% if handler.user["role"] == 3 %}
+                    <a href="/admin">Dashboard</a>
+                    {% end %}
+                    {% end %}
+                    </div>                                             
                 </div>
             </div>
         </div>

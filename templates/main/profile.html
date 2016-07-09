@@ -5,8 +5,11 @@
             <div class="col-md-3">
 
                 <div class="user-profile">
-                    <img src="../../../static/images/avatar/avatar-1.svg" alt="" class="img-circle">
-                    <h4>Wong</h4>
+                    <img src="{{ userProfile['avatar'] }}" alt="" class="img-circle">
+                    <h4>{{ userProfile['username'] }}</h4>
+                    <h6>{{ userProfile['position'] }}</h6>
+                    <a href="mailto:{{ userProfile['email'] }}"><h6>{{ userProfile['email']}}</h6></a>
+                    
                 </div>
             </div>
             <div class="col-md-9">
@@ -18,21 +21,17 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          <span class="sr-only">Close</span>
-        </button>
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Close</span>
+                                            </button>
                                 <h4 class="modal-title" id="myModalLabel">Add Abstract</h4>
                             </div>
                             <form action="/paper/{{ handler.signedid }}/commit" method="POST">
                                 <div class="modal-body container">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <fieldset class="form-group">                  
+                                            <fieldset class="form-group">
                                                 <input id="paper-title" class="col-md-9 form-control" type="text" placeholder="Paper Title" name="title">
-                                            </fieldset>
-
-                                            <fieldset class="form-group"> 
-                                                <input id="paper-abstract" class="col-md-9 form-control" type="text" placeholder="Paper Abstract" name="content">
                                             </fieldset>
 
                                             <fieldset class="form-group">
@@ -40,7 +39,11 @@
                                             </fieldset>
 
                                             <fieldset class="form-group">
-                                                <input id="paper-author" class="col-md-9 form-control" type="text" placeholder="Paper Publish Date" name="pubdate">
+                                                <input id="paper-author" class="col-md-9 form-control" type="text" placeholder="Paper Publish Date:YYYY" name="pubdate">
+                                            </fieldset>
+
+                                            <fieldset class="form-group">
+                                                <textarea id="paper-abstract" class="col-md-9 form-control" row="10" placeholder="Paper Abstract" name="content"></textarea>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -53,19 +56,17 @@
                         </div>
                     </div>
                 </div>
+                <hr> 
+                {% for item in paperList %}
                 <div class="paper-feed">
-                    <hr>
                     <a href="#">
-                        <h4>Computing of Interface Aesthetic</h4>
+                        <h4>{{ item['title'] }}</h4>
                     </a>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam mattis justo, quis luctus justo
-                        euismod sit amet. Vestibulum id egestas ipsum, non eleifend risus. Aenean consequat aliquam scelerisque.
-                        Cras sollicitudin metus nec mollis aliquet. Vestibulum interdum libero massa, elementum lacinia mauris
-                        suscipit nec. Morbi egestas aliquet est, eget interdum ligula pulvinar at. Phasellus tempus semper
-                        tortor eget tincidunt. Donec maximus eleifend libero, at gravida sem vestibulum id. Vivamus viverra
-                        bibendum dui.</p>
+                    <p>{{ item['content'] }}</p>
+                    <div class="paper-feed-time"><span>Revise Time: {{ item['reviseTime'] }}</span><span>Create Time: {{ item['createTime'] }}</span></div>
                     <hr>
                 </div>
+                {% end %}
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from handlers import main, auth, search
+from handlers import main, auth, search, admin
 
 handlers = [
             (r"/", main.MainHandler),
@@ -22,6 +22,8 @@ handlers = [
             (r"/search", search.SearchListHandler),
 
             #Admin Handler
-
-
+            #(r"/admin/signin", admin.SignInHandler),
+            #(r"/admin/signout", admin.SignOutHandler),
+            (r"/admin", admin.AdminMainHandler),
+            
     ]

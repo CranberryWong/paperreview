@@ -20,10 +20,10 @@ class Paper(object):
 
     Paper.user = orm.Lazy(type = User, key = 'user_id')   
     '''
-    def __init__(self, user, title, author, content, pubDate):    
+    def __init__(self, user_id, username, avatar, title, author, content, pubDate):    
 
         self.paper_id = uuid.uuid1()
-        self.user = user
+        self.user = {'user_id': user_id, 'username': username, 'avatar': avatar}
         self.title = title
         self.author = author
         self.content = content

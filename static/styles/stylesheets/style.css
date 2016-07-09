@@ -81,15 +81,29 @@ main .main-margin {
 .paper-feed .feed-profile-fix {
   text-align: center;
 }
+/* line 21, ../sass/component/_main.scss */
+.paper-feed .paper-feed-time {
+  color: #999999;
+}
+/* line 24, ../sass/component/_main.scss */
+.paper-feed .paper-feed-time span {
+  margin-right: 40px;
+}
+/* line 28, ../sass/component/_main.scss */
+.paper-feed .paper-feed-avatar {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
 
-/* line 25, ../sass/component/_main.scss */
+/* line 37, ../sass/component/_main.scss */
 .user-profile {
   text-align: center;
   border: #dddddd 1px solid;
   border-radius: 1.25rem;
   padding: 1.25rem;
 }
-/* line 32, ../sass/component/_main.scss */
+/* line 44, ../sass/component/_main.scss */
 .user-profile img {
   height: 7rem;
   width: 7rem;
