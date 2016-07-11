@@ -1,16 +1,18 @@
+{% extends "main_base.html" %} {% block main %}
 <main>
         <div class="container main-margin">    
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <hr>
                     <div class="row">                  
                         <div class="col-md-9">
                             <div class="paper-feed">
                             <a href="#"><h4>{{ result['title'] }}</h4></a>
-                           <div class="user-profile">
-                            <img src="../../../static/images/avatar/avatar-1.svg" alt="" class="img-circle">
-                            <a href="/user/{{ result['user_id'] }}"><h4>{{ result['user']['username'] }}</h4></a>
-                        </div>
+                            <div style="display:inline;">
+                            <img src="{{ result['user']['avatar'] }}" alt="" class="img-circle paper-feed-avatar" style="display:inline;margin-right:20px;">
+                            <a href="/user/{{ result['user']['user_id'] }}"><h4 style="display:inline;">{{ result['user']['username'] }}</h4></a>
+                            </div>
+                            <div class="paper-feed-time"><span>Revise Time: {{ result['reviseTime'] }}</span><span>Create Time: {{ result['createTime'] }}</span></div>
                             <p>{{ result['content'] }}</p>
                         </div>
                         
@@ -23,3 +25,4 @@
                 </div>
             </div>
     </main>
+    {% end %}

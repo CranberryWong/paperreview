@@ -17,5 +17,19 @@ from handlers.main import BaseHandler
 
 class AdminMainHandler(BaseHandler):
     def get(self):
+        BaseHandler.initialize(self)
         self.title = "Dashboard | " + self.signeduser
-        self.render("admin/index.html")
+        users = db.user
+        userList = users.find({}).sort('username')
+        self.render("admin/index.html", userList = userList)
+
+class RoleReviseHandler(BaseHandler):
+    def get(self):
+        BaseHandler.initialize(self)
+        user_id = self.get_argument('uid')
+        users = db.user
+        user_one = user.update_one({'user_id': user_id})
+        user_
+
+class AuthReviseHandler(BaseHandler):
+    pass

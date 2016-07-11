@@ -16,3 +16,23 @@ def NameRewrite(filename):
     else:
         filename = name_split[0] + str(file_timestamp) + '.' + name_split[1]
     return filename
+
+class Pagination(object):
+    def __init__(self):
+        self.pre = ''
+        self.next = ''
+        self.pages = []
+        self.current = ''
+        self.action = ''
+
+def generatePagination(action, list, targetpage):
+    targetpage = int(targetpage)
+    pagination = Pagination()
+    pagination.current = targetpage
+    maxpage = list.count()
+    pagination.pages = range(1, maxpage/10+2)
+    pagination.pre = str(targetpage-1) if targetpage-1 in pagination.pages else str(targetpage)
+    pagination.next = str(targetpage+1) if targetpage+1 in pagination.pages else str(targetpage)
+    pagination.action = action
+    list = list[(targetpage-1) * 10 : targetpage * 10]
+    return list, pagination

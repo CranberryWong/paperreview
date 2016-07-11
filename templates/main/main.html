@@ -5,6 +5,11 @@
             <div class="col-md-9">
                 <h5>Paper Feed</h5>
                 <hr>
+                {% if handler.thisquery != None %}
+                <ol class="breadcrumb">
+                    <li class="active">{{ handler.thisquery }}</li>
+                </ol>
+                {% end %}
                 {% for item in paper %}
                 <div class="row">                    
                     <div class="paper-feed">
@@ -30,16 +35,16 @@
                 <nav>
                     <ul class="pagination pagination-lg">
                         <li>
-                            <a href="#" aria-label="Previous">
+                            <a href="{{ handler.pagination.action }}{{ handler.pagination.pre }}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                                 <span class="sr-only">Previous</span>
                             </a>
                         </li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
+                        {% for page in handler.pagination.pages %}
+                        <li{% if handler.pagination.current == page %} class="active" {% end %}><a href="{{ handler.pagination.action }}{{ page }}">{{ page }}</a></li>
+                        {% end %}
                         <li>
-                            <a href="#" aria-label="Next">
+                            <a href="{{ handler.pagination.action }}{{ handler.pagination.next }}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                                 <span class="sr-only">Next</span>
                             </a>

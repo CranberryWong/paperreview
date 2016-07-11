@@ -3,11 +3,13 @@
 import tornado.web
 import tornado.locale
 import random
-from handlers.util import db
+from handlers.util import db, generatePagination
 from handlers.auth import StaticData
 from models.paper import Paper
 import uuid
+from bson import json_util
 import json
+from datetime import datetime
 
 global lang_encode
 lang_encode = 'zh_CN'
@@ -27,6 +29,7 @@ class BaseHandler(StaticData):
     def initialize(self):
         StaticData.initialize(self)
         self.title = 'Untitled'
+        self.thisquery = None
         if lang_encode == 'zh_CN':
             self.lang = 'English'
         else:
@@ -46,21 +49,25 @@ class BaseHandler(StaticData):
 class MainHandler(BaseHandler):
     def get(self):
         BaseHandler.initialize(self)
+        targetpage = int(self.get_argument('page',default='1'))
         self.title = 'Home'
         papers = db.paper
-        paper = papers.find({}).sort("reviseTime")
-        
+        paperlist = papers.find({}).sort("reviseTime")
+        print papers.count()
+        paper, self.pagination = generatePagination('/?page=', paperlist, targetpage)
         self.render("main/main.html", paper = paper)
 
 class PaperShowHandler(BaseHandler):
     def get(self, id):
         BaseHandler.initialize(self)
         papers = db.paper
-        result = papers.find_one({"paper_id": id})
+        paper_id = uuid.UUID(id)
+        result = papers.find_one({"paper_id": paper_id})
         self.title = result["title"]
         self.render("main/detail.html", result = result)
 
 class PaperCommitHandler(BaseHandler):
+    @tornado.web.authenticated
     def post(self, id):
         BaseHandler.initialize(self)
 
@@ -68,11 +75,24 @@ class PaperCommitHandler(BaseHandler):
         content = self.get_argument('content', default='')
         author = self.get_argument('author', default='')
         pubdate = self.get_argument('pubdate', default='')
+        paper_id = self.get_argument('pid', default="")
         
+        print paper_id
         papers = db.paper
         newPaper = Paper(id, self.signeduser, self.signedavatar, title, author, content, pubdate)
-        result = papers.insert_one(newPaper.getValue()).inserted_id
+        if paper_id == '':
+            result = papers.insert_one(newPaper.getValue()).inserted_id
+        else:
+            result = papers.update_one({'paper_id': paper_id}, {"$set": {"title": title, "content": content, "author": author, "pubDate": pubdate, "reviseTime": datetime.now() }}) 
         self.write('<script language="javascript">alert("success");self.location="/user/{0}";</script>'.format(id))
+
+class PaperReviseHandler(BaseHandler):
+    def get(self, id):
+        BaseHandler.initialize(self)
+        papers = db.paper
+        paper = papers.find_one({"paper_id": uuid.UUID(id)})
+        output = json.dumps(paper, default=json_util.default)
+        self.write(output)
 
 #User Profile Handler
 class UserHomeHandler(BaseHandler):

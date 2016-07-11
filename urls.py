@@ -7,6 +7,7 @@ handlers = [
             (r"/", main.MainHandler),
             (r"/paper/([0-9a-zA-Z\-]*)", main.PaperShowHandler),
             (r"/paper/([0-9a-zA-Z\-]*)/commit", main.PaperCommitHandler),
+            (r"/paper/([0-9a-zA-Z\-]*)/revise", main.PaperReviseHandler),
             (r"/user/([0-9a-zA-Z\-]*)", main.UserHomeHandler),
             (r"/user/([0-9a-zA-Z\-]*)/profile", main.UserProfileHandler),
             (r'/q/date/([0-9]+)/([0-9]+)',main.ListByDate),
@@ -25,5 +26,7 @@ handlers = [
             #(r"/admin/signin", admin.SignInHandler),
             #(r"/admin/signout", admin.SignOutHandler),
             (r"/admin", admin.AdminMainHandler),
+            (r"/admin/role", admin.RoleReviseHandler),
+            (r"/admin/auth", admin.AuthReviseHandler),
             
     ]

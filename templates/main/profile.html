@@ -13,8 +13,9 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add</button>
-
+            {% if handler.signedid == userProfile['user_id'] %}
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="add-abstract-button">Add</button>
+            {% end %}
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -31,6 +32,10 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <fieldset class="form-group">
+                                                <input id="paper-id" class="col-md-9 form-control" type="hidden" name="pid" value=''>
+                                            </fieldset>
+                                            
+                                            <fieldset class="form-group">
                                                 <input id="paper-title" class="col-md-9 form-control" type="text" placeholder="Paper Title" name="title">
                                             </fieldset>
 
@@ -39,11 +44,11 @@
                                             </fieldset>
 
                                             <fieldset class="form-group">
-                                                <input id="paper-author" class="col-md-9 form-control" type="text" placeholder="Paper Publish Date:YYYY" name="pubdate">
+                                                <input id="paper-pubdate" class="col-md-9 form-control" type="text" placeholder="Paper Publish Date:YYYY" name="pubdate">
                                             </fieldset>
 
                                             <fieldset class="form-group">
-                                                <textarea id="paper-abstract" class="col-md-9 form-control" row="10" placeholder="Paper Abstract" name="content"></textarea>
+                                                <textarea id="paper-content" class="col-md-9 form-control" row="10" placeholder="Paper Content" name="content"></textarea>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -63,7 +68,7 @@
                         <h4>{{ item['title'] }}</h4>
                     </a>
                     <p>{{ item['content'] }}</p>
-                    <div class="paper-feed-time"><span>Revise Time: {{ item['reviseTime'] }}</span><span>Create Time: {{ item['createTime'] }}</span></div>
+                    <div class="paper-feed-time"><span>Revise Time: {{ item['reviseTime'] }}</span><span>Create Time: {{ item['createTime'] }}</span><a href="#" class="pull-right paper-feed-revise" data-toggle="modal" data-target="#myModal" data-pid="{{ item['paper_id'] }}">Revise</a></div>
                     <hr>
                 </div>
                 {% end %}
@@ -71,4 +76,8 @@
         </div>
     </div>
 </main>
+
+{% end %}
+{% block customJS %}
+<script src="{{ static_url('scripts/paperevise.js') }}"></script>
 {% end %}
