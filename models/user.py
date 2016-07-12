@@ -24,7 +24,7 @@ class User(object):
     '''
     def __init__(self, username, password, email, position, role, avatar):
 
-        self.user_id = uuid.uuid1()
+        self.user_id = str(uuid.uuid1())
         self.username = username
         self.password = password
         self.email = email

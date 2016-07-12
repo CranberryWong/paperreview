@@ -24,12 +24,24 @@ class AdminMainHandler(BaseHandler):
         self.render("admin/index.html", userList = userList)
 
 class RoleReviseHandler(BaseHandler):
-    def get(self):
+    def post(self):
         BaseHandler.initialize(self)
-        user_id = self.get_argument('uid')
+        user_id = self.get_argument('user_id')
+        role = self.get_argument('roleselect')
         users = db.user
-        user_one = user.update_one({'user_id': user_id})
-        user_
+        user_one = users.update_one({'user_id': user_id},{"$set": {"role": int(role)}})
+        self.write("done")
 
 class AuthReviseHandler(BaseHandler):
-    pass
+    def post(self):
+        BaseHandler.initialize(self)
+        user_id = self.get_argument('user_id')
+        auth = self.get_argument('authselect')
+        print auth
+        if auth == 'True':
+            auth = True
+        else:
+            auth = False
+        users = db.user
+        user_one = users.update_one({'user_id': user_id},{"$set": {"authenication": auth}})
+        self.write("done")

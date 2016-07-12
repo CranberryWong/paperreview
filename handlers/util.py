@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
+import os
 import tornado.web
 import tornado.locale
 import random
+from PIL import Image
+from cStringIO import StringIO
 from pymongo import MongoClient
 
 client = MongoClient('localhost', 27017)
@@ -36,3 +39,19 @@ def generatePagination(action, list, targetpage):
     pagination.action = action
     list = list[(targetpage-1) * 10 : targetpage * 10]
     return list, pagination
+
+class ImageUpload(tornado.web.RequestHandler):
+    def post(self):
+        #upload_path = os.path.join(os.path.dirname(__file__),"static"),
+        if 'fileData' in self.request.files:
+            file_dict_list = self.request.files['fileData']
+            for file_dict in file_dict_list:
+                filename = nameRewrite(file_dict["filename"]).encode('utf8')
+                data = file_dict["body"]
+                image = Image.open(StringIO(data))
+                image.save(articles_path + filename, quality=150)
+            self.write({
+			"success": True,
+			"msg": 'success',
+			"file_path": '/static/articles/' + filename
+		})

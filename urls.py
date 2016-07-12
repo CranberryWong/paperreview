@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-from handlers import main, auth, search, admin
+from handlers import main, auth, search, admin, util
 
 handlers = [
             (r"/", main.MainHandler),
@@ -12,6 +12,7 @@ handlers = [
             (r"/user/([0-9a-zA-Z\-]*)/profile", main.UserProfileHandler),
             (r'/q/date/([0-9]+)/([0-9]+)',main.ListByDate),
             (r'/type/([0-9a-zA-Z]*)', main.ListByType),
+            (r"/upload",util.ImageUpload),
 
             #User Profile
             (r"/signin", auth.SignIn),

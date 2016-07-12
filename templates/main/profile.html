@@ -1,4 +1,8 @@
-{% extends "main_base.html" %} {% block main %}
+{% extends "main_base.html" %} 
+{% block customCSS %}
+<link rel="stylesheet" type="text/css" href="{{ static_url("simditor/styles/simditor.css") }}" />
+{% end %}
+{% block main %}
 <main>
     <div class="container main-margin">
         <div class="row">
@@ -32,23 +36,11 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <fieldset class="form-group">
-                                                <input id="paper-id" class="col-md-9 form-control" type="hidden" name="pid" value=''>
-                                            </fieldset>
-                                            
-                                            <fieldset class="form-group">
-                                                <input id="paper-title" class="col-md-9 form-control" type="text" placeholder="Paper Title" name="title">
-                                            </fieldset>
+                                                <input id="paper-id" class="col-md-9 form-control" type="hidden" name="pid" value="">
+                                            </fieldset>     
 
                                             <fieldset class="form-group">
-                                                <input id="paper-author" class="col-md-9 form-control" type="text" placeholder="Paper Author" name="author">
-                                            </fieldset>
-
-                                            <fieldset class="form-group">
-                                                <input id="paper-pubdate" class="col-md-9 form-control" type="text" placeholder="Paper Publish Date:YYYY" name="pubdate">
-                                            </fieldset>
-
-                                            <fieldset class="form-group">
-                                                <textarea id="paper-content" class="col-md-9 form-control" row="10" placeholder="Paper Content" name="content"></textarea>
+                                                <textarea id="editor paper-content" class="col-md-9 form-control" rows="10" placeholder="Paper Content" name="content" upload="True" pasteImage="True"></textarea>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -79,5 +71,27 @@
 
 {% end %}
 {% block customJS %}
-<script src="{{ static_url('scripts/paperevise.js') }}"></script>
+<script type="text/javascript" src="{{static_url("simditor/scripts/module.js")}}"></script>
+<script type="text/javascript" src="{{static_url("simditor/scripts/hotkeys.js")}}"></script>
+<script type="text/javascript" src="{{static_url("simditor/scripts/uploader.js")}}"></script>
+<script type="text/javascript" src="{{static_url("simditor/scripts/simditor.js")}}"></script>
+<script>
+$(function(){
+    toolbar = [ 'title', 'bold', 'italic', 'underline', 'strikethrough',
+            'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|',
+            'link', 'image', 'hr', '|', 'indent', 'outdent' ];
+    var editor = new Simditor( {
+        textarea : $('#editor'),
+        placeholder : '这里输入内容...',
+        toolbar : toolbar,  //工具栏
+        defaultImage : '/static/simditor/images/image.png', //编辑器插入图片时使用的默认图片
+        upload : {
+            url : '/upload', //文件上传的接口地址
+            params: null, //键值对,指定文件上传接口的额外参数,上传的时候随文件一起提交
+            fileKey: 'fileDataFileName', //服务器端获取文件数据的参数名
+            connectionCount: 3,
+            leaveConfirm: '正在上传文件'
+        }
+    });
+   })
 {% end %}

@@ -1,20 +1,38 @@
 $(function() {
-    $('#role-select').click(function(e) {
+    $('#role-select').change(function() {
         var target = $(this);
+        console.log("load");
         var user_id = target.data('uid');
-        
-        var jqxhr = $.ajax('/paper/role?uid=' +  , {
-        dataType: 'json'
-}).done(function (data) {
-    $('#paper-title').val(data.title);
-    $('#paper-author').val(data.author);
-    $('#paper-pubdate').val(data.pubDate);
-    $('#paper-content').val(data.content);
-    console.log('成功, 收到的数据: ' + JSON.stringify(data));
-}).fail(function (xhr, status) {
-    console.log('失败: ' + xhr.status + ', 原因: ' + status);
-}).always(function () {
-    console.Log('请求完成: 无论成功或失败都会调用');
-});
+        var roleselect = target.val();
+
+        var jqxhr = $.post('/admin/role', {
+        user_id: user_id,
+        roleselect: roleselect
+    },
+        function(){
+            console.log("Done");
+            
+        }
+);
+    })
+})
+
+$(function() {
+    $('#auth-select').change(function() {
+        var target = $(this);
+        console.log("load");
+        var user_id = target.data('uid');
+        var authselect = target.val();
+        console.log(authselect)
+
+        var jqxhr = $.post('/admin/auth', {
+        user_id: user_id,
+        authselect: authselect
+    },
+        function(){
+            console.log("Done");
+            
+        }
+);
     })
 })

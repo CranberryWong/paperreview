@@ -1,4 +1,7 @@
 {% extends "admin_base.html" %}
+{% block customCSS %}
+<script src="{{ static_url('scripts/admin-index.js') }}"></script>
+{% end %}
 {% block main %}
 <table class="table">
   <thead>
@@ -15,15 +18,15 @@
       <td>{{ item['username'] }}</td>
       <td><a href="mailto:{{ item['email'] }}">{{ item['email'] }}</a></td>
       <td>
-      <select class="form-control" id="role-select" data-uid="{{ item['user_id'] }}">
+      <select class="form-control" id="role-select" data-uid="{{ item['user_id'] }}" name="roleselect">
       <option {% if item['role'] == 1 %} selected {% end %}>1</option>
       <option {% if item['role'] == 2 %} selected {% end %}>2</option>
       <option {% if item['role'] == 3 %} selected {% end %}>3</option>
     </select>
       </td>
       <td>
-        <select class="form-control" id="auth-select" data-uid="{{ item['user_id'] }}">
-      <option {% if item['authenication'] == True %} selected {% end %}>Ture</option>
+        <select class="form-control" id="auth-select" data-uid="{{ item['user_id'] }}" name="roleselect">
+      <option {% if item['authenication'] == True %} selected {% end %}>True</option>
       <option {% if item['authenication'] == False %} selected {% end %}>False</option>
     </select>
       </td>
@@ -33,5 +36,5 @@
 </table>
 {% end %}
 {% block customJS %}
-<script src="{{ static_url('scripts/admin-index.js') }}"></script>
+
 {% end %}

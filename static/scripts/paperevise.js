@@ -16,9 +16,8 @@ $(function() {
 }).fail(function (xhr, status) {
     console.log('失败: ' + xhr.status + ', 原因: ' + status);
 }).always(function () {
-    console.Log('请求完成: 无论成功或失败都会调用');
+    console.log('请求完成: 无论成功或失败都会调用');
 });
-
   })
 })
 
@@ -29,6 +28,6 @@ $(function() {
     $('#paper-author').val('');
     $('#paper-pubdate').val('');
     $('#paper-content').val('');
-
+    $('#paper-id').val('');
   })
 })

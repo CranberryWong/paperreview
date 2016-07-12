@@ -61,8 +61,7 @@ class PaperShowHandler(BaseHandler):
     def get(self, id):
         BaseHandler.initialize(self)
         papers = db.paper
-        paper_id = uuid.UUID(id)
-        result = papers.find_one({"paper_id": paper_id})
+        result = papers.find_one({"paper_id": id})
         self.title = result["title"]
         self.render("main/detail.html", result = result)
 
@@ -90,7 +89,7 @@ class PaperReviseHandler(BaseHandler):
     def get(self, id):
         BaseHandler.initialize(self)
         papers = db.paper
-        paper = papers.find_one({"paper_id": uuid.UUID(id)})
+        paper = papers.find_one({"paper_id": id})
         output = json.dumps(paper, default=json_util.default)
         self.write(output)
 
@@ -99,7 +98,7 @@ class UserHomeHandler(BaseHandler):
     def get(self, id):
         BaseHandler.initialize(self)
         users = db.user
-        user_id = uuid.UUID(id)
+        user_id = id
         userProfile = users.find_one({"user_id": user_id})
         papers = db.paper
         paperList = papers.find({"user.user_id": id})
