@@ -7,6 +7,7 @@ import random
 from PIL import Image
 from cStringIO import StringIO
 from pymongo import MongoClient
+import functools
 
 client = MongoClient('localhost', 27017)
 db = client.papersourcing_db
@@ -55,3 +56,15 @@ class ImageUpload(tornado.web.RequestHandler):
 			"msg": 'success',
 			"file_path": '/static/articles/' + filename
 		})
+
+def Role(func):
+    @functools.wraps(func)
+    def wrapper(self, *args, **kw):
+        user = self.user
+        role = user["role"]
+        if role == 3:
+            return func(self, *args, **kw)
+        else:
+            print "Error"
+            self.redirect('/')
+    return wrapper

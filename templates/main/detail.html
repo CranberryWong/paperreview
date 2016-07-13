@@ -7,10 +7,10 @@
                     <div class="row">                  
                         <div class="col-md-9">
                             <div class="paper-feed">
-                            <a href="#"><h4>{{ result['title'] }}</h4></a>
+                            <h2>{{ result['bibtex']['title'] }}</h2>
                             <div style="display:inline;">
-                            <img src="{{ result['user']['avatar'] }}" alt="" class="img-circle paper-feed-avatar" style="display:inline;margin-right:20px;">
-                            <a href="/user/{{ result['user']['user_id'] }}"><h4 style="display:inline;">{{ result['user']['username'] }}</h4></a>
+                            <img src="{{ result['user']['avatar'] }}" alt="" class="img-circle paper-feed-avatar-compact" style="display:inline;margin-right:20px;">
+                            <a href="/user/{{ result['user']['user_id'] }}"><h5 style="display:inline;">{{ result['user']['username'] }}</h5></a>
                             </div>
                             <div class="paper-feed-time"><span>Revise Time: {{ result['reviseTime'] }}</span><span>Create Time: {{ result['createTime'] }}</span></div>
                             <p>{{ result['content'] }}</p>
@@ -19,6 +19,24 @@
                         <hr>
                         </div>
                         <div class="col-md-3">
+                            <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for k, v in result['bibtex'].iteritems() %}
+    <tr>
+    
+      <td>{{ k }}</td>
+      <td>{{ v }}</td>
+      
+    </tr>
+    {% end %}
+  </tbody>
+</table>
                         </div>
                         </div>
                     </div>

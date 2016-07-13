@@ -30,6 +30,11 @@ main {
         height: 60px;
         margin-bottom: 10px;
     }
+    .paper-feed-avatar-compact {
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+    }
 }
 
 
@@ -49,3 +54,8 @@ main {
 }
 
 //Paper Modal
+.simditor-toolbar {
+    top: 0px; 
+    width: 666px; 
+    left: 387px;
+}

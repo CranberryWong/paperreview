@@ -1,6 +1,6 @@
 {% extends "main_base.html" %} 
 {% block customCSS %}
-<link rel="stylesheet" type="text/css" href="{{ static_url("simditor/styles/simditor.css") }}" />
+<link rel="stylesheet" type="text/css" href="{{ static_url('simditor/styles/simditor.css') }}" />
 {% end %}
 {% block main %}
 <main>
@@ -12,7 +12,7 @@
                     <img src="{{ userProfile['avatar'] }}" alt="" class="img-circle">
                     <h4>{{ userProfile['username'] }}</h4>
                     <h6>{{ userProfile['position'] }}</h6>
-                    <a href="mailto:{{ userProfile['email'] }}"><h6>{{ userProfile['email']}}</h6></a>
+                    <a href="mailto:{{ userProfile['email'] }}"><h6>{{ userProfile['email'] }}</h6></a>
                     
                 </div>
             </div>
@@ -22,7 +22,7 @@
             {% end %}
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog" role="document" style="width:1000px;">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -36,11 +36,13 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <fieldset class="form-group">
-                                                <input id="paper-id" class="col-md-9 form-control" type="hidden" name="pid" value="">
+                                                <input id="paper-id" class="form-control" type="hidden" name="pid" value="">
                                             </fieldset>     
-
                                             <fieldset class="form-group">
-                                                <textarea id="editor paper-content" class="col-md-9 form-control" rows="10" placeholder="Paper Content" name="content" upload="True" pasteImage="True"></textarea>
+                                                <textarea id="bibtex-content" class="form-control" rows="6" placeholder="Clip BibTex" name="bixtex"></textarea>
+                                            </fieldset>
+                                            <fieldset class="form-group">
+                                                <textarea id="editor" class="paper-content" rows="10" name="content" upload="True" pasteImage="True"></textarea>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -56,8 +58,8 @@
                 <hr> 
                 {% for item in paperList %}
                 <div class="paper-feed">
-                    <a href="#">
-                        <h4>{{ item['title'] }}</h4>
+                    <a href="/paper/{{ item['paper_id'] }}">
+                        <h4>{{ item['bibtex']['title'] }}</h4>
                     </a>
                     <p>{{ item['content'] }}</p>
                     <div class="paper-feed-time"><span>Revise Time: {{ item['reviseTime'] }}</span><span>Create Time: {{ item['createTime'] }}</span><a href="#" class="pull-right paper-feed-revise" data-toggle="modal" data-target="#myModal" data-pid="{{ item['paper_id'] }}">Revise</a></div>
@@ -71,6 +73,7 @@
 
 {% end %}
 {% block customJS %}
+<script type="text/javascript" src="{{static_url("scripts/paperevise.js")}}"></script>
 <script type="text/javascript" src="{{static_url("simditor/scripts/module.js")}}"></script>
 <script type="text/javascript" src="{{static_url("simditor/scripts/hotkeys.js")}}"></script>
 <script type="text/javascript" src="{{static_url("simditor/scripts/uploader.js")}}"></script>
@@ -82,7 +85,7 @@ $(function(){
             'link', 'image', 'hr', '|', 'indent', 'outdent' ];
     var editor = new Simditor( {
         textarea : $('#editor'),
-        placeholder : '这里输入内容...',
+        placeholder : '',
         toolbar : toolbar,  //工具栏
         defaultImage : '/static/simditor/images/image.png', //编辑器插入图片时使用的默认图片
         upload : {
@@ -94,4 +97,5 @@ $(function(){
         }
     });
    })
+   </script>
 {% end %}

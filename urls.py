@@ -13,6 +13,7 @@ handlers = [
             (r'/q/date/([0-9]+)/([0-9]+)',main.ListByDate),
             (r'/type/([0-9a-zA-Z]*)', main.ListByType),
             (r"/upload",util.ImageUpload),
+            (r"/aboutus",main.AboutUsHandler),
 
             #User Profile
             (r"/signin", auth.SignIn),
@@ -29,5 +30,6 @@ handlers = [
             (r"/admin", admin.AdminMainHandler),
             (r"/admin/role", admin.RoleReviseHandler),
             (r"/admin/auth", admin.AuthReviseHandler),
+            (r"/admin/aboutus", admin.AboutAdminHandler),
             
     ]

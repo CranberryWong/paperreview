@@ -12,10 +12,13 @@ import json
 import random
 from datetime import datetime
 from PIL import Image
-from handlers.util import db
+from handlers.util import db, Role
 from handlers.main import BaseHandler
+import markdown
 
 class AdminMainHandler(BaseHandler):
+    @tornado.web.authenticated
+    @Role
     def get(self):
         BaseHandler.initialize(self)
         self.title = "Dashboard | " + self.signeduser
@@ -45,3 +48,23 @@ class AuthReviseHandler(BaseHandler):
         users = db.user
         user_one = users.update_one({'user_id': user_id},{"$set": {"authenication": auth}})
         self.write("done")
+
+#About Us
+class AboutAdminHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        BaseHandler.initialize(self)
+        self.title = "Edit About Us"
+        
+        info_path = os.path.join(self.get_template_path(), 'aboutme.md')
+        aboutcontent = open(info_path).read().decode('utf8')
+        self.render("admin/about.html", aboutcontent = aboutcontent)
+
+    def post(self):
+        BaseHandler.initialize(self)
+        content = self.get_argument("content", default="")
+        info_path = os.path.join(self.get_template_path(), 'aboutme.md')
+        with open(info_path, 'w') as f:
+            f.write(content.encode('utf8'))
+        self.redirect('/admin/aboutus')
+

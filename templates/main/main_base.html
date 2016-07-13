@@ -21,11 +21,11 @@
                     <nav class="navbar navbar-light" style="background-color:#e3f2fd;">
                         <a class="navbar-brand" href="/"><img src="{{ static_url('images/logo.png') }}" alt="" style="height:30px;display:inline;margin-right:10px;"><span>{{ _('Papersroucing') }}</span></a>
                         <ul class="nav navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">{{ _('Home') }}<span class="sr-only">(current)</span></a>
+                            <li class="nav-item {% if request.path == '/' %} active {% end %}">
+                                <a class="nav-link" href="/">{{ _('Home') }}<span class="sr-only">(current)</span></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">{{ _('About Us') }}</a>
+                            <li class="nav-item {% if request.path == '/aboutus' %} active {% end %}">
+                                <a class="nav-link" href="/aboutus">{{ _('About Us') }}</a>
                             </li>
                         </ul>
                         <div class="pull-right form-inline" style="margin-left:30px;">

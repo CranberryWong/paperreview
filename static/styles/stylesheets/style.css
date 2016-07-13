@@ -95,19 +95,32 @@ main .main-margin {
   height: 60px;
   margin-bottom: 10px;
 }
+/* line 33, ../sass/component/_main.scss */
+.paper-feed .paper-feed-avatar-compact {
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+}
 
-/* line 37, ../sass/component/_main.scss */
+/* line 42, ../sass/component/_main.scss */
 .user-profile {
   text-align: center;
   border: #dddddd 1px solid;
   border-radius: 1.25rem;
   padding: 1.25rem;
 }
-/* line 44, ../sass/component/_main.scss */
+/* line 49, ../sass/component/_main.scss */
 .user-profile img {
   height: 7rem;
   width: 7rem;
   margin: 2rem;
+}
+
+/* line 57, ../sass/component/_main.scss */
+.simditor-toolbar {
+  top: 0px;
+  width: 666px;
+  left: 387px;
 }
 
 /**

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
+import os
 import tornado.web
 import tornado.locale
 import random
@@ -10,6 +11,8 @@ import uuid
 from bson import json_util
 import json
 from datetime import datetime
+import bibtexparser
+import markdown
 
 global lang_encode
 lang_encode = 'zh_CN'
@@ -37,6 +40,7 @@ class BaseHandler(StaticData):
         if self.signeduser:
             users = db.user
             self.user = users.find_one({'username':self.signeduser})
+            print self.user
             self.signedid = self.user['user_id']
             self.signedavatar = self.user['avatar']
         else:
@@ -62,7 +66,7 @@ class PaperShowHandler(BaseHandler):
         BaseHandler.initialize(self)
         papers = db.paper
         result = papers.find_one({"paper_id": id})
-        self.title = result["title"]
+        self.title = result['bibtex']["title"]
         self.render("main/detail.html", result = result)
 
 class PaperCommitHandler(BaseHandler):
@@ -70,19 +74,18 @@ class PaperCommitHandler(BaseHandler):
     def post(self, id):
         BaseHandler.initialize(self)
 
-        title = self.get_argument('title', default='')
-        content = self.get_argument('content', default='')
-        author = self.get_argument('author', default='')
-        pubdate = self.get_argument('pubdate', default='')
+        bibtex = self.get_argument('bixtex', default='')
         paper_id = self.get_argument('pid', default="")
-        
+        content = self.get_argument('content', default='')
+        bib = bibtexparser.loads(bibtex)
+        print bib
         print paper_id
         papers = db.paper
-        newPaper = Paper(id, self.signeduser, self.signedavatar, title, author, content, pubdate)
+        newPaper = Paper(id, self.signeduser, self.signedavatar, bib.entries[0], content)
         if paper_id == '':
             result = papers.insert_one(newPaper.getValue()).inserted_id
         else:
-            result = papers.update_one({'paper_id': paper_id}, {"$set": {"title": title, "content": content, "author": author, "pubDate": pubdate, "reviseTime": datetime.now() }}) 
+            result = papers.update_one({'paper_id': paper_id}, {"$set": {"bibtex": bib.entries[0], "content": content, "reviseTime": datetime.now() }}) 
         self.write('<script language="javascript">alert("success");self.location="/user/{0}";</script>'.format(id))
 
 class PaperReviseHandler(BaseHandler):
@@ -128,3 +131,12 @@ class ListByDate(BaseHandler):
 
 class ListByType(BaseHandler):
     pass
+
+#About US
+class AboutUsHandler(BaseHandler):
+    def get(self):
+        BaseHandler.initialize(self)
+        self.title = "About Us"
+        info_path = os.path.join(self.get_template_path(), 'aboutme.md')
+        aboutcontent = markdown.markdown(open(info_path).read().decode('utf8'))
+        self.render('main/aboutus.html', aboutcontent = aboutcontent)

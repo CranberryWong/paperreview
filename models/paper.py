@@ -20,14 +20,12 @@ class Paper(object):
 
     Paper.user = orm.Lazy(type = User, key = 'user_id')   
     '''
-    def __init__(self, user_id, username, avatar, title, author, content, pubDate):    
+    def __init__(self, user_id, username, avatar, bibtex, content):    
 
         self.paper_id = str(uuid.uuid1())
         self.user = {'user_id': user_id, 'username': username, 'avatar': avatar}
-        self.title = title
-        self.author = author
+        self.bibtex = bibtex
         self.content = content
-        self.pubDate = pubDate
         self.createTime = datetime.now()
         self.reviseTime = datetime.now()        
         
@@ -37,6 +35,6 @@ class Paper(object):
 
     def getValue(self):
         
-        return dict(paper_id = self.paper_id, user = self.user, title = self.title, author = self.author, content = self.content, pubDate = self.pubDate, createTime = self.createTime, reviseTime = self.reviseTime)
+        return dict(paper_id = self.paper_id, user = self.user, bibtex = self.bibtex, content = self.content, createTime = self.createTime, reviseTime = self.reviseTime)
 
  

@@ -7,10 +7,8 @@ $(function() {
     var jqxhr = $.ajax('/paper/' + paper_id + '/revise', {
     dataType: 'json'
 }).done(function (data) {
-    $('#paper-title').val(data.title);
-    $('#paper-author').val(data.author);
-    $('#paper-pubdate').val(data.pubDate);
-    $('#paper-content').val(data.content);
+    $('#paper-bibtex').val(data.bibtex);
+    $('.paper-content').val(data.content);
     $('#paper-id').val(data.paper_id);
     console.log('成功, 收到的数据: ' + JSON.stringify(data));
 }).fail(function (xhr, status) {
@@ -24,10 +22,9 @@ $(function() {
 $(function() {
   $('#add-abstract-button').click(function(e) {
     var target = $(this);
-    $('#paper-title').val('');
-    $('#paper-author').val('');
-    $('#paper-pubdate').val('');
-    $('#paper-content').val('');
+    $('#paper-bibtex').val('');
+    $('.paper-content').val('');
     $('#paper-id').val('');
+    $('.simditor-toolbar').css("top",'0px').css("width","966px").css("left","237.5px")
   })
 })
